@@ -1,0 +1,29 @@
+{
+  "name": "sketch",
+  "version": "0.0.1",
+  "description": "p5.js sketch template",
+  "main": "sketch.js",
+  "scripts": {
+    "start": "gulp serve",
+    "build-dev": "gulp dev"
+  },
+  "keywords": [
+    "processing",
+    "p5.js"
+  ],
+  "author": "Gabriel Schroder",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "p5": "~0.4.2"
+  },
+  "devDependencies": {
+    "p5": "~0.4.2",
+    "gulp": "~3.8.11",
+    "gulp-livereload": "~3.8.0",
+    "gulp-jade": "~1.0.0",
+    "browserify": "~9.0.3",
+    "gulp-notify": "~2.2.0",
+    "gulp-browserify": "~0.5.1",
+    "gulp-connect": "~2.2.0"
+  }
+}
