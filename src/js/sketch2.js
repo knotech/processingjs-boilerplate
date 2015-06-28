@@ -10,4 +10,6 @@ function setup() {
 
 function draw() {
 	background(0,0,0);
+	fill(0);
+	sphere(12,12,12);
 }

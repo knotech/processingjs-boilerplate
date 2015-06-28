@@ -2,6 +2,9 @@ var r = 6;
 var rVector = 1;
 var r2 = 0;
 var xPos = 0.5;
+var cursorX = 0;
+var cursorY = 0;
+var cursorDiff = [];
 
 WebFont.load({
 	google: {
@@ -11,17 +14,15 @@ WebFont.load({
 
 function setup() {
 	createCanvas(window.innerWidth,200).parent('header');
-
 }
 
 function draw() {
 	clear();
 
 	// fill(128+(-1*(128/r)),256+(-1*(256/r)),24+(-1*24/r));
-	background(Math.random()*r*2*0.75,Math.random()*r*2,Math.random()*r*2*0.75);
-	if (r > 40 || r < 1) {
+	background(Math.random()*r*4*0.75,Math.random()*r*4*0.87,Math.random()*r*4*0.75);
+	if (r > 60 || r < 1) {
 		rVector *= -1;
-		// console.log(r, rVector)
 	}
 
 	r += rVector*0.5;
@@ -44,7 +45,7 @@ function draw() {
 	// translate(0,0,0);
 	// fill(0);
 	// sphere(25);
-	// sphere(r,r,r,)
+	// sphere(r,r,r);
 	// fill(Math.abs(64/(r)),Math.abs(254/(r)),Math.abs(24/(r)));
 	// fill(255);
 	// textSize(96);
@@ -52,6 +53,9 @@ function draw() {
 	// text("Web Development",((window.innerWidth*xPos)%(window.innerWidth+window.innerWidth*0.2))-window.innerWidth*0.1,144);
 	// xPos += 0.0005;
 
-	// fill();
+	fill();
+	// cursorDiff = [abs(mouseX-cursorX)]
+	// cursorX = mouseX-10;
+	// cursorY = mouseY-10;
 	// rect(mouseX-10, mouseY-10, 20, 20);
 }
