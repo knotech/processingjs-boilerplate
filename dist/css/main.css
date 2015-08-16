@@ -1,0 +1,13 @@
+html, body, div, canvas {
+  margin: 0;
+  padding: 0; }
+
+#header {
+  font-family: "Maven Pro";
+  font-size: 12em; }
+  #header .title {
+    margin: 0;
+    padding: 0; }
+  #header #headline h3 {
+    margin: 0;
+    padding: 0; }

@@ -1,1 +1,13 @@
-var apples = require('knowledge');
+var express = require('express');
+var app = express();
+
+app.get('/', function(req, res) {
+	res.send('shit is moving');
+});
+
+var server = app.listen(3000, function() {
+	var host = server.address().address;
+	var port = server.address().port;
+
+	console.log('shit is listening at http://%s:%s.', host, port);
+});

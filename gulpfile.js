@@ -1,11 +1,21 @@
+// Import libs
 var path = require('path');
 var fs = require('fs');
 var gulp = require('gulp');
 var notify = require('gulp-notify');
 var browserify = require('gulp-browserify');
 var jade = require('gulp-jade');
+var less = require('gulp-less-sourcemap');
+var sass = require('gulp-sass');
+var minify = require('gulp-minify-css');
+var uglify = require('gulp-uglify');
 var connect = require('gulp-connect');
 
+var server = require('gulp-express');
+// Libs imported
+
+
+// Declare vars
 var srcDir = 'src';
 var distDir = 'dist';
 
@@ -19,18 +29,28 @@ var cssDistDir = path.join(distDir, 'css');
 var cssEntry = 'frame.css';
 var cssAll = '/**/*.css';
 
+var lessSrcDir = path.join(srcDir, 'less');
+var lessDistDir = path.join(distDir, 'css');
+var lessEntry = 'frame.less';
+var lessAll = '/**/*.less';
+
+var sassSrcDir = path.join(srcDir, 'sass');
+var sassDistDir = path.join(distDir, 'css');
+var sassEntry = 'main.scss';
+var sassAll = '/**/*.scss';
+
 var jsSrcDir = path.join(srcDir, 'js');
 var jsDistDir = path.join(distDir, 'js');
 var jsEntry = 'sketch.js';
-var jsAll = '/**/*.js';
+var jsAll = '**/*.js';
 
 var imgSrc = path.join(srcDir, 'img');
 var imgDist = path.join(distDir, 'img');
 var imgAll = '/**/*'
+// Vars declared
 
 
-
-
+// Define functions
 gulp.task('tpl:dev', function() {
 	return gulp.src(path.join(tplSrcDir, tplEntry))
 		.pipe(jade({
@@ -60,7 +80,86 @@ gulp.task('css:dev', function() {
 		.pipe(connect.reload());
 });
 
-gulp.task('js:dev', function() {
+gulp.task('less:dev', function() {
+	return gulp.src(path.join(lessSrcDir, lessEntry))
+		.pipe(less())
+
+		.on('error', notify.onError({
+			message: 'Broke. As. Fuck. : <%= error.message %>',
+		}))
+
+		.pipe(gulp.dest(lessDistDir))
+		.pipe(notify("You did something right: <%= file.relative %>"))
+		.pipe(connect.reload());
+});
+
+gulp.task('sass:dev', function() {
+	return gulp.src(path.join(sassSrcDir, sassEntry))
+		.pipe(sass())
+
+		.on('error', notify.onError({
+			message: 'Broke. As. Fuck. : <%= error.message %>',
+		}))
+
+		.pipe(gulp.dest(cssDistDir))
+		.pipe(notify("You did something right: <%= file.relative %>"))
+		.pipe(connect.reload());
+});
+
+gulp.task('js:dev', function(fname) {
+	return gulp.src(path.join(jsSrcDir, fname))
+
+		.on('error', notify.onError({
+			message: "See, you play around too fuckin' much: <%= error.message %>",
+		}))
+
+		.pipe(gulp.dest(jsDistDir))
+		.pipe(notify("Make it sqwuerk: <%= file.relative %>"))
+		.pipe(connect.reload());
+});
+
+gulp.task('css:prod', function() {
+	return gulp.src(path.join(cssSrcDir, cssEntry))
+		.pipe(minify())
+
+		.on('error', notify.onError({
+			message: 'Broke. As. Fuck. : <%= error.message %>',
+		}))
+
+		.pipe(gulp.dest(cssDistDir))
+		.pipe(notify("You did something right: <%= file.relative %>"))
+		.pipe(connect.reload());
+});
+
+gulp.task('less:prod', function() {
+	return gulp.src(path.join(lessSrcDir, lessEntry))
+		.pipe(less())
+		.pipe(minify())
+
+		.on('error', notify.onError({
+			message: 'Broke. As. Fuck. : <%= error.message %>',
+		}))
+
+		.pipe(gulp.dest(cssDistDir))
+		.pipe(notify("You did something right: <%= file.relative %>"))
+		.pipe(connect.reload());
+});
+
+gulp.task('sass:prod', function() {
+	return gulp.src(path.join(sassSrcDir, sassEntry))
+		.pipe(sass())
+		.pipe(minify())
+
+		.on('error', notify.onError({
+			message: 'Broke. As. Fuck. : <%= error.message %>',
+		}))
+
+		.pipe(gulp.dest(cssDistDir))
+		.pipe(notify("You did something right: <%= file.relative %>"))
+		.pipe(connect.reload());
+});
+
+gulp.task('js:prod', function() {
 	return gulp.src(path.join(jsSrcDir, jsAll))
 
 		.on('error', notify.onError({
@@ -72,8 +171,9 @@ gulp.task('js:dev', function() {
 		.pipe(connect.reload());
 });
 
+
 // gulp.task('assets:dev', function() {
-// 	var images = gulp.src(imgSrc + imgAll)
+// 	return gulp.src(imgSrc + imgAll)
 // 		.pipe(gulp.dest(imgDist));
 
 // 	return images;
@@ -89,9 +189,14 @@ gulp.task('connect', function() {
 
 gulp.task('watch', ['dev'], function() {
 	gulp.watch(tplSrcDir + tplAll, ['tpl:dev']);
-	gulp.watch(cssSrcDir + cssAll, ['css:dev']);
+	// gulp.watch(cssSrcDir + cssAll, ['css:dev']);
+	gulp.watch(sassSrcDir + sassAll, ['sass:dev']);
 	gulp.watch(jsSrcDir + jsAll, ['js:dev']);
 });
+// Functions defined
 
+
+// Run that shit.
 gulp.task('serve', ['watch', 'connect']);
-gulp.task('dev', ['tpl:dev', 'css:dev', 'js:dev']);
+gulp.task('dev', ['tpl:dev', 'sass:dev', 'js:dev']);
+// Shit is ran.
