@@ -60,11 +60,11 @@ gulp.task('tpl:dev', function() {
 		}))
 
 		.on('error', notify.onError({
-			message: 'You done fucked up now son: <%= error.message %>',
+			message: 'You done messed up now: <%= error.message %>',
 		}))
 
 		.pipe(gulp.dest(distDir))
-		.pipe(notify("This shit works as far as I can tell: <%= file.relative %>"))
+		.pipe(notify("Your jade skills are on point as far as I can tell: <%= file.relative %>"))
 		.pipe(connect.reload());
 });
 
@@ -72,11 +72,11 @@ gulp.task('css:dev', function() {
 	return gulp.src(path.join(cssSrcDir, cssEntry))
 
 		.on('error', notify.onError({
-			message: 'Broke. As. Fuck. : <%= error.message %>',
+			message: 'You probably dropped a semi-colon in your stylesheet: <%= error.message %>',
 		}))
 
 		.pipe(gulp.dest(cssDistDir))
-		.pipe(notify("You did something right: <%= file.relative %>"))
+		.pipe(notify("Your css changes have taking effect: <%= file.relative %>"))
 		.pipe(connect.reload());
 });
 
@@ -85,11 +85,11 @@ gulp.task('less:dev', function() {
 		.pipe(less())
 
 		.on('error', notify.onError({
-			message: 'Broke. As. Fuck. : <%= error.message %>',
+			message: 'You probably dropped a semi-colon in your stylesheet: <%= error.message %>',
 		}))
 
 		.pipe(gulp.dest(lessDistDir))
-		.pipe(notify("You did something right: <%= file.relative %>"))
+		.pipe(notify("Your LESS changes have taking effect: <%= file.relative %>"))
 		.pipe(connect.reload());
 });
 
@@ -98,11 +98,11 @@ gulp.task('sass:dev', function() {
 		.pipe(sass())
 
 		.on('error', notify.onError({
-			message: 'Broke. As. Fuck. : <%= error.message %>',
+			message: 'You probably dropped a semi-colon in your stylesheet: <%= error.message %>',
 		}))
 
 		.pipe(gulp.dest(cssDistDir))
-		.pipe(notify("You did something right: <%= file.relative %>"))
+		.pipe(notify("Your SASS changes have taking effect: <%= file.relative %>"))
 		.pipe(connect.reload());
 });
 
@@ -110,11 +110,11 @@ gulp.task('js:dev', function(fname) {
 	return gulp.src(path.join(jsSrcDir, fname))
 
 		.on('error', notify.onError({
-			message: "See, you play around too fuckin' much: <%= error.message %>",
+			message: "See, you play around too much: <%= error.message %>",
 		}))
 
 		.pipe(gulp.dest(jsDistDir))
-		.pipe(notify("Make it sqwuerk: <%= file.relative %>"))
+		.pipe(notify("Your JS changes have taken effect: <%= file.relative %>"))
 		.pipe(connect.reload());
 });
 
@@ -123,7 +123,7 @@ gulp.task('css:prod', function() {
 		.pipe(minify())
 
 		.on('error', notify.onError({
-			message: 'Broke. As. Fuck. : <%= error.message %>',
+			message: 'You probably dropped a semi-colon in your stylesheet: <%= error.message %>',
 		}))
 
 		.pipe(gulp.dest(cssDistDir))
@@ -137,7 +137,7 @@ gulp.task('less:prod', function() {
 		.pipe(minify())
 
 		.on('error', notify.onError({
-			message: 'Broke. As. Fuck. : <%= error.message %>',
+			message: 'You probably dropped a semi-colon in your stylesheet: <%= error.message %>',
 		}))
 
 		.pipe(gulp.dest(cssDistDir))
@@ -151,7 +151,7 @@ gulp.task('sass:prod', function() {
 		.pipe(minify())
 
 		.on('error', notify.onError({
-			message: 'Broke. As. Fuck. : <%= error.message %>',
+			message: 'You probably dropped a semi-colon in your stylesheet: <%= error.message %>',
 		}))
 
 		.pipe(gulp.dest(cssDistDir))
@@ -163,11 +163,11 @@ gulp.task('js:prod', function() {
 	return gulp.src(path.join(jsSrcDir, jsAll))
 
 		.on('error', notify.onError({
-			message: "See, you play around too fuckin' much: <%= error.message %>",
+			message: "Your JS isn't compiling right: <%= error.message %>",
 		}))
 
 		.pipe(gulp.dest(jsDistDir))
-		.pipe(notify("Make it sqwuerk: <%= file.relative %>"))
+		.pipe(notify("As development, so production: <%= file.relative %>"))
 		.pipe(connect.reload());
 });
 
@@ -193,10 +193,11 @@ gulp.task('watch', ['dev'], function() {
 	gulp.watch(sassSrcDir + sassAll, ['sass:dev']);
 	gulp.watch(jsSrcDir + jsAll, ['js:dev']);
 });
-// Functions defined
+// Functions are defined
 
 
-// Run that shit.
+// Run that ish.
 gulp.task('serve', ['watch', 'connect']);
 gulp.task('dev', ['tpl:dev', 'sass:dev', 'js:dev']);
-// Shit is ran.
+gulp.task('prod', ['tpl:prod', 'sass:prod', 'js:prod']);
+// Ish is ran.
